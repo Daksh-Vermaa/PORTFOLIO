@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev // Pixel_World</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
+
+    <div class="pixel-grid-bg"></div>
+    <div class="scanlines"></div>
+
+    <div class="doodle doodle-1">👾</div>
+    <div class="doodle doodle-2">💾</div>
+    <div class="doodle doodle-3">{ }</div>
+    <div class="doodle doodle-4">⚡</div>
+
+    <main>
+
+        <section id="hero" class="hidden-section">
+            <div class="pixel-container">
+                <div class="glitch-wrapper">
+                    <h1 class="glitch" data-text="HELLO_WORLD">HELLO_WORLD</h1>
+                </div>
+                <div class="profile-frame">
+                    <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Dev1" alt="Avatar" class="pixel-avatar">
+                </div>
+                <h2 class="role-title">&lt; CREATIVE_DEV /&gt;</h2>
+                
+                <div class="scroll-signal interactable">
+                    <span>SCROLL TO START</span>
+                    <div class="arrow-down"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="hidden-section">
+            <div class="pixel-card">
+                <div class="card-header">
+                    <span class="pixel-dot red"></span>
+                    <span class="pixel-dot yellow"></span>
+                    <span class="pixel-dot green"></span>
+                    <h3>// SYSTEM_INFO</h3>
+                </div>
+                <div class="card-body">
+                    <p id="typing-text"></p> <div class="photo-gallery">
+                        <div class="pixel-photo interactable">📸</div>
+                        <div class="pixel-photo interactable">✈️</div>
+                        <div class="pixel-photo interactable">☕</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="hidden-section">
+            <div class="section-title">
+                <h2>{ SKILL_SET }</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-box interactable" data-skill="HTML5">
+                    <span class="icon">📜</span>
+                    <span class="name">HTML</span>
+                </div>
+                <div class="skill-box interactable" data-skill="CSS3">
+                    <span class="icon">🎨</span>
+                    <span class="name">CSS</span>
+                </div>
+                <div class="skill-box interactable" data-skill="JS_ES6">
+                    <span class="icon">⚡</span>
+                    <span class="name">JS</span>
+                </div>
+                <div class="skill-box interactable" data-skill="REACT">
+                    <span class="icon">⚛️</span>
+                    <span class="name">REACT</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="hidden-section">
+            <div class="section-title">
+                <h2>&lt; REPOSITORIES /&gt;</h2>
+            </div>
+            <div id="project-container" class="projects-grid">
+                <div class="loading-state">LOADING_DATA...</div>
+            </div>
+        </section>
+
+        <section id="contact" class="hidden-section">
+            <div class="pixel-card contact-card">
+                <h3>CONNECT_SIGNAL</h3>
+                <div class="social-links">
+                    <a href="#" class="social-btn interactable">🐦 TWITTER</a>
+                    <a href="#" class="social-btn interactable">💼 LINKEDIN</a>
+                    <a href="#" class="social-btn interactable">📧 EMAIL</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="pixel-footer">
+            <p>© 2026 PIXEL_ARCHITECT // BUILD_V.1.0</p>
+        </footer>
+
+    </main>
+
+    <script src="js/cursor.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="js/typing.js"></script>
+    <script src="js/github.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

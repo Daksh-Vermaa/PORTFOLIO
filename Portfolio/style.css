@@ -1,0 +1,352 @@
+/* ------------------------------------------------------------
+   CORE VARIABLES & RESET
+------------------------------------------------------------ */
+:root {
+    --bg-color: #121212;
+    --neon-green: #0f0;
+    --neon-pink: #ff00ff;
+    --neon-cyan: #00ffff;
+    --dark-grey: #2a2a2a;
+    --text-main: #e0e0e0;
+    --pixel-border: 4px;
+    --font-header: 'Press Start 2P', cursive;
+    --font-body: 'VT323', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none; /* Hide default cursor */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* ------------------------------------------------------------
+   BACKGROUND & DOODLES
+------------------------------------------------------------ */
+.pixel-grid-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(15, 255, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 255, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -2;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.3;
+}
+
+.doodle {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.5;
+    animation: float 6s ease-in-out infinite;
+    z-index: -1;
+}
+.doodle-1 { top: 10%; left: 10%; animation-delay: 0s; }
+.doodle-2 { top: 40%; right: 15%; animation-delay: 1s; }
+.doodle-3 { top: 70%; left: 5%; animation-delay: 2s; color: var(--neon-cyan); }
+.doodle-4 { top: 20%; right: 30%; animation-delay: 3s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* ------------------------------------------------------------
+   CUSTOM CURSOR
+------------------------------------------------------------ */
+#cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--neon-green);
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: difference;
+}
+
+#cursor.hovered {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 255, 0, 0.2);
+    border-color: var(--neon-pink);
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* ------------------------------------------------------------
+   LAYOUT & TYPOGRAPHY
+------------------------------------------------------------ */
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+section {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5rem;
+    opacity: 0; /* Hidden initially */
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* The Reveal Class (Added by JS) */
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-header);
+    text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------
+   HERO SECTION
+------------------------------------------------------------ */
+.glitch-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.glitch {
+    font-size: 3rem;
+    color: var(--neon-green);
+    position: relative;
+}
+
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 var(--neon-pink);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 var(--neon-cyan);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.pixel-avatar {
+    width: 150px;
+    height: 150px;
+    border: 4px solid var(--text-main);
+    box-shadow: 8px 8px 0 var(--neon-pink);
+    margin-bottom: 2rem;
+    image-rendering: pixelated;
+    transition: transform 0.3s;
+}
+
+.pixel-avatar:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.scroll-signal {
+    margin-top: 3rem;
+    text-align: center;
+    color: var(--neon-cyan);
+    font-family: var(--font-header);
+    font-size: 0.8rem;
+    animation: blink 1.5s infinite;
+}
+
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--neon-cyan);
+    margin: 10px auto;
+}
+
+/* ------------------------------------------------------------
+   PIXEL CARDS (About & Social)
+------------------------------------------------------------ */
+.pixel-card {
+    background: var(--dark-grey);
+    border: 4px solid var(--text-main);
+    box-shadow: 10px 10px 0 var(--neon-green);
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+}
+
+.card-header {
+    border-bottom: 2px solid var(--text-main);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pixel-dot { width: 15px; height: 15px; display: inline-block; }
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+#typing-text {
+    font-size: 1.5rem;
+    min-height: 100px;
+}
+
+.photo-gallery {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.pixel-photo {
+    width: 80px;
+    height: 80px;
+    background: #000;
+    border: 2px dashed var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: transform 0.3s;
+}
+
+.pixel-photo:hover {
+    transform: translateY(-5px);
+    border-style: solid;
+    border-color: var(--neon-pink);
+}
+
+/* ------------------------------------------------------------
+   SKILLS & PROJECTS GRID
+------------------------------------------------------------ */
+.skills-grid, .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.skill-box, .project-card {
+    border: 2px solid var(--text-main);
+    padding: 1.5rem;
+    text-align: center;
+    background: #1e1e1e;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.skill-box:hover, .project-card:hover {
+    box-shadow: 5px 5px 0 var(--neon-cyan);
+    transform: translate(-5px, -5px);
+    background: #252525;
+}
+
+.project-card h3 {
+    font-size: 1rem;
+    color: var(--neon-green);
+    margin-bottom: 0.5rem;
+}
+
+.project-card p {
+    font-size: 1rem;
+    color: #bbb;
+    margin-bottom: 1rem;
+}
+
+.repo-link {
+    display: inline-block;
+    padding: 5px 10px;
+    background: var(--neon-pink);
+    color: #000;
+    text-decoration: none;
+    font-family: var(--font-header);
+    font-size: 0.7rem;
+    margin-top: auto;
+}
+
+/* ------------------------------------------------------------
+   SOCIAL BUTTONS
+------------------------------------------------------------ */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-btn {
+    text-decoration: none;
+    color: var(--text-main);
+    font-family: var(--font-header);
+    border: 2px solid var(--text-main);
+    padding: 1rem;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.social-btn:hover {
+    background: var(--neon-green);
+    color: #000;
+    box-shadow: 4px 4px 0 #fff;
+}
+
+/* ------------------------------------------------------------
+   ANIMATIONS
+------------------------------------------------------------ */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(20% 0 80% 0); }
+    20% { clip-path: inset(60% 0 10% 0); }
+    40% { clip-path: inset(40% 0 50% 0); }
+    60% { clip-path: inset(80% 0 5% 0); }
+    80% { clip-path: inset(10% 0 70% 0); }
+    100% { clip-path: inset(30% 0 20% 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(10% 0 60% 0); }
+    20% { clip-path: inset(30% 0 10% 0); }
+    40% { clip-path: inset(70% 0 20% 0); }
+    60% { clip-path: inset(20% 0 50% 0); }
+    80% { clip-path: inset(60% 0 30% 0); }
+    100% { clip-path: inset(40% 0 10% 0); }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .glitch { font-size: 2rem; }
+    main { padding: 1rem; }
+}
