@@ -3,7 +3,7 @@
 */
 
 const textElement = document.getElementById('typing-text');
-const textToType = "INITIALIZING UPLINK... \nLOADED: CREATIVE DEVELOPER \nSTATUS: OPEN FOR WORK \n\nI build interactive digital experiences that live on the web. My focus is on retro aesthetics combined with modern performance.";
+const textToType = "Daksh Verma 🦖\n\n— I'm a creative dev tryna build cool stuff with my gang. \n\n When I'm not hitting my head on the desk, you'll catch me cooking up checkmates or just vibing with my soccer ball 👾";
 
 let index = 0;
 let isTyping = false;
